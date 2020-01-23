@@ -4,13 +4,14 @@
   "version": "0.0.1",
   "author": "kyushun <kyushun12@gmail.com> (https://github.com/kyushun/)",
   "homepage": "https://github.com/kyushun/clipboard-resizer",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build:ts": "tsc",
+    "build": "npm run build:ts && electron-builder",
     "watch": "tsc -w",
     "lint": "tslint -p .",
     "lint:fix": "tslint -p . --fix",
-    "start": "npm run build && electron ./dist/index.js"
+    "start": "npm run build:ts && electron ./dist/index.js"
   },
   "husky": {
     "hooks": {
@@ -24,11 +25,12 @@
   },
   "license": "ISC",
   "dependencies": {
-    "electron": "^7.1.10",
     "electron-store": "^5.1.0"
   },
   "devDependencies": {
+    "electron": "^7.1.10",
     "@types/node": "12.12.6",
+    "electron-builder": "^22.2.0",
     "husky": "^4.2.0",
     "lint-staged": "^10.0.2",
     "prettier": "^1.19.1",
@@ -36,5 +38,27 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.1.0",
     "typescript": "^3.7.5"
+  },
+  "build": {
+    "appId": "com.kyushun.app.clipboard-resizer",
+    "files": [
+      "dist/**/*",
+      "icon/**/*"
+    ],
+    "directories": {
+      "output": "build"
+    },
+    "mac": {
+      "category": "public.app-category.graphics-design",
+      "target": "dmg",
+      "icon": "icon/icon.png"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "icon/icon.png"
+    }
   }
 }

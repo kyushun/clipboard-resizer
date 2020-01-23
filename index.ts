@@ -4,6 +4,8 @@ import { FitTypes } from './lib/types';
 import Store from './lib/store';
 import Resizer from './lib/resizer';
 
+const isMac = process.platform === 'darwin';
+
 const contextMenu = Menu.buildFromTemplate([
   { label: app.name + ' v' + app.getVersion(), enabled: false },
   { type: 'separator' },
@@ -79,9 +81,14 @@ const contextMenu = Menu.buildFromTemplate([
   { role: 'quit' }
 ]);
 
+if (isMac) app.dock.hide();
+
 let tray: Electron.Tray = null;
 app.on('ready', () => {
-  tray = new Tray(path.join(__dirname, '../icon/macIconTemplate.png'));
+  const iconPath = isMac
+    ? '../icon/macTrayTemplate.png'
+    : '../icon/winTrayIcon.png';
+  tray = new Tray(path.join(__dirname, iconPath));
   tray.setToolTip(app.name);
   tray.setContextMenu(contextMenu);
 });
