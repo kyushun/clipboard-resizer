@@ -6,6 +6,19 @@ import Resizer from './lib/resizer';
 
 const isMac = process.platform === 'darwin';
 
+const Presets = {
+  Percentages: [75, 50, 25, 10],
+  Dimentions: [
+    { name: '4K', width: 3840, height: 2160 },
+    { name: 'WQHD', width: 2560, height: 1440 },
+    { name: 'FHD', width: 1920, height: 1080 },
+    { name: 'HD', width: 1280, height: 720 },
+    { name: '480p', width: 854, height: 480 },
+    { name: '360p', width: 640, height: 360 },
+    { name: '240p', width: 426, height: 240 }
+  ]
+};
+
 const contextMenu = Menu.buildFromTemplate([
   { label: app.name + ' v' + app.getVersion(), enabled: false },
   { type: 'separator' },
@@ -16,22 +29,12 @@ const contextMenu = Menu.buildFromTemplate([
         label: 'by Percentage',
         submenu: [
           { label: 'Preset Percentages', enabled: false },
-          {
-            label: '75%',
-            click: () => Resizer.init().resizeByPercentage(75)
-          },
-          {
-            label: '50%',
-            click: () => Resizer.init().resizeByPercentage(50)
-          },
-          {
-            label: '25%',
-            click: () => Resizer.init().resizeByPercentage(25)
-          },
-          {
-            label: '10%',
-            click: () => Resizer.init().resizeByPercentage(10)
-          }
+          ...Presets.Percentages.map(v => {
+            return {
+              label: v + '%',
+              click: () => Resizer.init().resizeByPercentage(v)
+            };
+          })
         ]
       },
       {
@@ -58,21 +61,17 @@ const contextMenu = Menu.buildFromTemplate([
           },
           { type: 'separator' },
           { label: 'Preset Resolutions', enabled: false },
-          {
-            label: '4K (4096×2160)',
-            click: () =>
-              Resizer.init().resizeByDimentions(4096, 2160, Store.FitType)
-          },
-          {
-            label: 'FHD (1920x1080)',
-            click: () =>
-              Resizer.init().resizeByDimentions(1920, 1080, Store.FitType)
-          },
-          {
-            label: 'HD (1280x720)',
-            click: () =>
-              Resizer.init().resizeByDimentions(1280, 720, Store.FitType)
-          }
+          ...Presets.Dimentions.map(v => {
+            return {
+              label: `${v.name} (${v.width}x${v.height})`,
+              click: () =>
+                Resizer.init().resizeByDimentions(
+                  v.width,
+                  v.height,
+                  Store.FitType
+                )
+            };
+          })
         ]
       }
     ]
