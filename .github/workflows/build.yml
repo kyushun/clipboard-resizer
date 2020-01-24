@@ -19,9 +19,12 @@ jobs:
         with:
           node-version: 12
 
-      - name: Build app
+      - name: Install packages
         run: |
           yarn install
+
+      - name: Build app
+        run: |
           yarn build
 
       - name: Upload built files
