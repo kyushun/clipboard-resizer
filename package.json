@@ -42,6 +42,7 @@
   },
   "build": {
     "appId": "com.kyushun.app.clipboard-resizer",
+    "artifactName": "${name}-${version}-${os}.${ext}",
     "files": [
       "dist/**/*",
       "icon/**/*"
