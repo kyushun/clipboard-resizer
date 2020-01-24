@@ -6,8 +6,8 @@
   "homepage": "https://github.com/kyushun/clipboard-resizer",
   "main": "dist/index.js",
   "scripts": {
-    "build:ts": "tsc",
-    "build": "npm run build:ts && electron-builder",
+    "build:ts": "rimraf dist && tsc",
+    "build": "rimraf build && npm run build:ts && electron-builder",
     "watch": "tsc -w",
     "lint": "tslint -p .",
     "lint:fix": "tslint -p . --fix",
@@ -28,12 +28,13 @@
     "electron-store": "^5.1.0"
   },
   "devDependencies": {
-    "electron": "^7.1.10",
     "@types/node": "12.12.6",
+    "electron": "^7.1.10",
     "electron-builder": "^22.2.0",
     "husky": "^4.2.0",
     "lint-staged": "^10.0.2",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.1.0",
