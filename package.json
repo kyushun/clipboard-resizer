@@ -1,7 +1,7 @@
 {
   "name": "clipboard-resizer",
   "productName": "Clipboard Resizer",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "kyushun <kyushun12@gmail.com> (https://github.com/kyushun/)",
   "homepage": "https://github.com/kyushun/clipboard-resizer",
   "main": "dist/index.js",
